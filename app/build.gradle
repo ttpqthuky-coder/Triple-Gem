@@ -1,0 +1,47 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'vn.hoasen.tuvung'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId 'vn.hoasen.tuvung'
+        minSdk 26
+        targetSdk 35
+        versionCode Integer.parseInt(System.getenv('GITHUB_RUN_NUMBER') ?: '1')
+        versionName "1.${System.getenv('GITHUB_RUN_NUMBER') ?: '0'}"
+    }
+
+    // Khoá ký cố định đi kèm dự án, để mỗi bản build mới cài đè lên bản cũ mà không mất tiến độ học.
+    // Chỉ dùng cho cài đặt cá nhân, không dùng để đưa lên Google Play.
+    signingConfigs {
+        personal {
+            storeFile file('hoasen.keystore')
+            storePassword 'hoasen2026'
+            keyAlias 'hoasen'
+            keyPassword 'hoasen2026'
+        }
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.personal
+        }
+        release {
+            minifyEnabled false
+            signingConfig signingConfigs.personal
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    lint {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+}

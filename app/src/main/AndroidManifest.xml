@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Dùng để tải phông chữ đẹp và nhận dạng giọng nói khi có mạng; phần học và nghe vẫn chạy khi offline. -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- Dùng cho chức năng "Nói theo, chấm phát âm"; app chỉ hỏi quyền khi bạn chạm micro lần đầu. -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+    <!-- Bắt buộc từ Android 11 để app tìm thấy công cụ đọc văn bản (TextToSpeech). -->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.TTS_SERVICE" />
+        </intent>
+        <!-- Để tìm thấy dịch vụ nhận dạng giọng nói (Google) trên Android 11 trở lên. -->
+        <intent>
+            <action android:name="android.speech.RecognitionService" />
+        </intent>
+    </queries>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:label="@string/app_name"
+        android:supportsRtl="false"
+        android:theme="@style/AppTheme">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>
